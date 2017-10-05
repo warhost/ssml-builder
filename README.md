@@ -1,5 +1,5 @@
 # ssml-builder
-This package creates Speech Synthesis Markup Language (SSML) using the builder pattern.
+This package creates Speech Synthesis Markup Language (SSML) using the builder pattern with German Strings.
 
 
 Tired of creating SSML using string concatenation or worring about special characters like '&amp;' ? This project aims to eliminate all these headaches by providing a clean and easy to use API. In addition to making SSML easier to create, this library is fully unit-tested to ensure things work as expected.
@@ -7,9 +7,7 @@ Tired of creating SSML using string concatenation or worring about special chara
 Whether you're building an Amazon Alexa Skill using the older version of the JavaScript SDK or the new one, this library is compatible. See the examples in the lower portion of this documentation.
 
 ## Installation
-```sh
-npm install ssml-builder --save
-```
+Clone the repository.
 ## Features
 * Works with both the new and old Alexa SDKs.
 * Handles special characters to ensure the SSML is well-formated.
