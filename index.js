@@ -24,7 +24,7 @@ function Speech() {
  * @returns {Speech}
  */
 Speech.prototype.say = function (saying) {
-    this._present(saying, "The saying provided to Speech#saying(..) was null or undefined.");
+    this._present(saying, "Die bereitgestellte Aussage für Speech#saying(..) war null oder undefined.");
     this._elements.push(this._escape(saying));
     return this;
 };
@@ -36,7 +36,7 @@ Speech.prototype.say = function (saying) {
  * @returns {Speech}
  */
 Speech.prototype.paragraph = function (paragraph) {
-    this._present(paragraph, "The paragraph provided to Speech#paragraph(..) was null or undefined.");
+    this._present(paragraph, "Der bereitgestellte Paragraph für Speech#paragraph(..) war null oder undefined.");
     this._elements.push("<p>" + this._escape(paragraph) + "</p>");
     return this;
 };
@@ -48,7 +48,7 @@ Speech.prototype.paragraph = function (paragraph) {
  * @returns {Speech}
  */
 Speech.prototype.sentence = function (saying) {
-    this._present(saying, "The sentence provided to Speech#sentence(..) was null or undefined.");
+    this._present(saying, "Der bereitgestellte Satz fürSpeech#sentence(..) war null oder undefined.");
     this._elements.push("<s>" + this._escape(saying) + "</s>");
     return this;
 };
@@ -60,7 +60,7 @@ Speech.prototype.sentence = function (saying) {
  * @returns {Speech}
  */
 Speech.prototype.pause = function (duration) {
-    this._present(duration, "The duration provided to Speech#pause(..) was null or undefined.");
+    this._present(duration, "Die bereitgestellte Dauer für Speech#pause(..) war null oder undefined.");
     this._validateDuration(duration);
     this._elements.push("<break time='" + duration + "'/>");
     return this;
@@ -73,10 +73,10 @@ Speech.prototype.pause = function (duration) {
  * @returns {Speech}
  */
 Speech.prototype.pauseByStrength = function (strength) {
-    this._present(strength, "The strength provided to Speech#pauseByStrength(..) was null or undefined");
+    this._present(strength, "Die bereitgestellte Stärke für Speech#pauseByStrength(..) war null oder undefined");
     strength = strength.toLowerCase().trim();
     var strengths = ['none', 'x-weak', 'weak', 'medium', 'strong', 'x-strong'];
-    isInList(strength, strengths, "The strength provided to Speech#pauseByStrength(..) was not valid. Received strength: " + strength);
+    isInList(strength, strengths, "Die bereitgestellte Stärke für Speech#pauseByStrength(..) ist nicht gültig. Bereitgestellte Stärke: " + strength);
 
     this._elements.push("<break strength='" + strength + "'/>");
     return this;
@@ -92,7 +92,7 @@ Speech.prototype.pauseByStrength = function (strength) {
  * @returns {Speech}
  */
  Speech.prototype.audio = function (url, callback) {
-     this._present(url, "The url provided to Speech#audio(..) was null or undefined.");
+     this._present(url, "Die bereitgestellte URL für Speech#audio(..) war null oder undefined.");
      if(callback){
        this._isFunction(callback, "callback");
        var audioBuilder = new Speech();
@@ -112,7 +112,7 @@ Speech.prototype.pauseByStrength = function (strength) {
  * @returns {Speech}
  */
 Speech.prototype.spell = function (word) {
-    this._present(word, "The word provided to Speech#spell(..) was null or undefined.");
+    this._present(word, "Das bereitgestellte Wort für Speech#spell(..) war null oder undefined.");
     this._elements.push("<say-as interpret-as='spell-out'>" + this._escape(word) + "</say-as>");
     return this;
 };
@@ -124,7 +124,7 @@ Speech.prototype.spell = function (word) {
  * @returns {Speech}
  */
 Speech.prototype.spellSlowly = function (word, delay) {
-    this._present(word, "The word provided to Speech#spellSlowly(..) was null or undefined.");
+    this._present(word, "Das bereitgestellte Wort für Speech#spellSlowly(..) war null oder undefined.");
     for (var i = 0; i < word.length; i++) {
         this._elements.push("<say-as interpret-as='spell-out'>" + this._escape(word.charAt(i)) + "</say-as>");
         this.pause(delay);
@@ -185,12 +185,12 @@ Speech.prototype._validateDuration = function (duration) {
         var pauseDuration = parts[1];
         var pauseType = parts[2];
         if (pauseType.toLowerCase() === 's' && pauseDuration > 10) {
-            throw "The pause duration exceeds the allowed 10 second duration. Duration provided: " + duration;
+            throw "Die Pausendauer überschreitet die zulässige Dauer von 10 Sekunden. Bereitgestellte Dauer: " + duration;
         } else if (pauseDuration > 10000) {
-            throw "The pause duration exceeds the allowed 10,000 milliseconds duration. Duration provided: " + duration;
+            throw "Die Pausendauer überschreitet die zulässige Dauer von 10.000 Millisekunden. Bereitgestellte Dauer: " + duration;
         }
     } else {
-        throw "The duration must be a number followed by either 's' for second or 'ms' for milliseconds. e.g., 10s or 100ms. Max duration is 10 seconds (10000 milliseconds)."
+        throw "Die Dauer muss eine Zahl sein, gefolgt von 's' für die zweite oder 'ms' für Millisekunden, zum Beispiel 10s oder 100ms. Maximale Dauer beträgt 10 Sekunden (10000 Millisekunden)."
     }
 };
 
@@ -204,11 +204,11 @@ Speech.prototype._validateDuration = function (duration) {
  * @returns {Speech}
  */
 Speech.prototype.sayAs = function (options) {
-    this._present(options, "The object provided to Speech#sayAs(..) was invalid.");
-    this._present(options.word, "The word provided to Speech#sayAs(..) was null or undefined.");
+    this._present(options, "Das bereitgestellte Object für Speech#sayAs(..) war ungültig.");
+    this._present(options.word, "Das bereitgestellte Wort für Speech#sayAs(..) war null or undefined.");
     if (options.interpret) {
         var listOfInterpret = ['characters', 'spell-out', 'cardinal', 'number', 'ordinal', 'digits', 'fraction', 'unit', 'date', 'time', 'telephone', 'address', 'interjection', 'expletive'];
-        isInList(options.interpret, listOfInterpret, "The interpret is invalid. Received this: " + options.interpret);
+        isInList(options.interpret, listOfInterpret, "Der Interpret ist ungültig. Ich habe folgendes erhalten: " + options.interpret);
         if (options.format) {
             this._elements.push("<say-as interpret-as=\'" + options.interpret + "\'" + " format=\'" + options.format + "'>" + options.word + "</say-as>");
             return this;
@@ -229,8 +229,8 @@ Speech.prototype.sayAs = function (options) {
  * @returns {Speech}
  */
 Speech.prototype.partOfSpeech = function (options) {
-    this._present(options, "The object provided to Speech#partOfSpeech(..) was invalid.");
-    this._present(options.word, "The word provided to Speech#partOfSpeech(..) was null or undefined.");
+    this._present(options, "Das bereitgestellte Object für Speech#partOfSpeech(..) war ungültig.");
+    this._present(options.word, "Das bereitgestellte Wort für Speech#partOfSpeech(..) war null oder undefined.");
     var word = this._escape(options.word);
     if (options.role) {
         this._elements.push("<w role=\'" + options.role + "'>" + word + "</w>")
@@ -248,9 +248,9 @@ Speech.prototype.partOfSpeech = function (options) {
  * @returns {Speech}
  */
 Speech.prototype.phoneme = function (alphabet, ph, word) {
-    this._present(alphabet, "The alphabet provided to Speech#phoneme(..) was null or undefined.");
-    this._present(ph, "The ph provided to Speech#phoneme(..) was null or undefined.");
-    this._present(word, "The word provided to Speech#phoneme(..) was null or undefined.");
+    this._present(alphabet, "Das bereitgestellte Alphabet für Speech#phoneme(..) war null oder undefined.");
+    this._present(ph, "Das bereitgestellte ph für Speech#phoneme(..) war null oder undefined.");
+    this._present(word, "Das bereitgestellte Wort für Speech#phoneme(..) war null oder undefined.");
     var escapedWord = this._escape(word);
     if (ph.indexOf("'") !== -1) {
         ph = ph.replace(/'/g, '&apos;')
@@ -267,7 +267,7 @@ Speech.prototype.phoneme = function (alphabet, ph, word) {
  */
 Speech.prototype._escape = function (word) {
     if (typeof(word) === "string") {
-        word = word.replace(/&/g, 'and');
+        word = word.replace(/&/g, 'und');
         word = word.replace(/</g, '');
         word = word.replace(/>/g, '');
         word = word.replace(/"/g, '');
@@ -316,14 +316,14 @@ Speech.prototype._isFunction = function (fnc, name) {
  * @returns {Speech}
  */
 Speech.prototype.emphasis = function (level, word) {
-    this._present(level, "The level provided to Speech#emphasis(..) was null or undefined");
-    this._present(word, "The word provided to Speech#emphasis(..) was null or undefined");
+    this._present(level, "Das bereitgestellte Level für Speech#emphasis(..) war null oder undefined");
+    this._present(word, "Das bereitgestellte Wort für Speech#emphasis(..) war null oder undefined");
     var levels = ['strong', 'moderate', 'reduced'];
     if (levels.indexOf(level) < 0) {
-        throw new Error("The level provided to Speech#emphasis(..) was not valid. Received level: " + level);
+        throw new Error("Das bereitgestellte Level für Speech#emphasis(..) war nicht gültig. Erhaltenes Level: " + level);
     }
 
-    this._notEmpty(word, "The word provided to Speech#emphasis(..) was empty");
+    this._notEmpty(word, "Das bereitgestellte Wort für Speech#emphasis(..) war leer.");
     this._elements.push("<emphasis level='" + level + "'>" + this._escape(word) + "</emphasis>");
     return this;
 };
@@ -335,9 +335,9 @@ Speech.prototype.emphasis = function (level, word) {
  * @returns {Speech}
  */
 Speech.prototype.prosody = function (attributes, word) {
-    this._present(attributes, "The attributes provided to Speech#prosody(..) was null or undefined");
-    this._present(word, "The word provided to Speech#prosody(..) was null or undefined");
-    this._notEmpty(word, "The word provided to Speech#prosody(..) was empty");
+    this._present(attributes, "Die bereitgestellten Attribute für Speech#prosody(..) ware null oder undefined");
+    this._present(word, "Das bereitgestellte Wort für Speech#prosody(..) war null oder undefined");
+    this._notEmpty(word, "Das bereitgestellte Wort für Speech#prosody(..) war leer");
 
     var validRates = ['x-slow', 'slow', 'medium', 'fast', 'x-fast'];
     var validPitches = ['x-low', 'low', 'medium', 'high', 'x-high'];
@@ -423,10 +423,10 @@ function checkRateRange(num) {
  * @returns {Speech}
  */
 Speech.prototype.sub = function (alias, word) {
-    this._present(alias, "The alias provided to Speech#sub(..) was null or undefined");
-    this._notEmpty(alias, "The alias provided to Speech#sub(..) was empty");
-    this._present(word, "The word provided to Speech#sub(..) was null or undefined");
-    this._notEmpty(word, "The word provided to Speech#sub(..) was empty");
+    this._present(alias, "Der bereitgestellte Alias für Speech#sub(..) war null oder undefined");
+    this._notEmpty(alias, "Der bereitgestellte Alias für Speech#sub(..) war leer");
+    this._present(word, "Das bereitgestellte Wort für Speech#sub(..) war null oder undefined");
+    this._notEmpty(word, "Das bereitgestellte Wort für Speech#sub(..) war leer");
 
     this._elements.push("<sub alias='" + alias + "'>" + this._escape(word) + "</sub>");
     return this;
